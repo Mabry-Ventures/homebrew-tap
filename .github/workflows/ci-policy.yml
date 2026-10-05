@@ -20,3 +20,4 @@ jobs:
           persist-credentials: false
       - run: python3 -m pip install --disable-pip-version-check 'PyYAML==6.0.3'
       - run: python3 scripts/check-ci-policy.py
+      - run: python3 scripts/__tests__/ci_policy_test.py
