@@ -24,6 +24,8 @@ UniqueLoader.add_constructor(yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG, map
 def inspect(root):
     errors = []
     directory = root / ".github/workflows"
+    if (root / ".github").is_symlink() or directory.is_symlink():
+        return ["workflow directory symlinks are not allowed"]
     if not directory.is_dir():
         return ["workflow directory is missing"]
     paths = sorted(p for p in directory.iterdir() if p.suffix in {".yml", ".yaml"})
@@ -45,7 +47,7 @@ def inspect(root):
                 where = f"{path.name}:{name}"
                 if "uses" in job:
                     ref = job["uses"]
-                    if not isinstance(ref, str) or not ref.startswith("./.github/workflows/") or ".." in ref[2:] or "${{" in ref or Path(ref).suffix not in {".yml", ".yaml"}:
+                    if not isinstance(ref, str) or not ref.startswith("./.github/workflows/") or ".." in ref[2:] or "${{" in ref or Path(ref).suffix not in {".yml", ".yaml"} or Path(ref[2:]).parent != Path(".github/workflows"):
                         errors.append(f"{where}: external or dynamic reusable workflow needs explicit owner review")
                     elif not (root / ref[2:]).is_file():
                         errors.append(f"{where}: local reusable workflow does not exist")

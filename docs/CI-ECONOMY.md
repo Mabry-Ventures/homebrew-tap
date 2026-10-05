@@ -31,3 +31,8 @@ coverage floors to fit a timeout. Preserve the current 90-day global evidence
 retention; shorten only disposable artifacts. GitHub paid overage remains $0;
 Xcode Cloud remains on its current tier. No auto-reload or credit spending is
 implied by this policy.
+
+The trusted policy workflow checks candidate YAML as data using only the base
+revision checker. Candidate checker/tests execute separately in the unprivileged
+PR lane. Both are path-scoped; no candidate program runs in pull_request_target.
+New trusted workflow definitions become active only after integration.
