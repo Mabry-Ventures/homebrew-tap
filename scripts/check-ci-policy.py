@@ -24,6 +24,8 @@ UniqueLoader.add_constructor(yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG, map
 def inspect(root):
     errors = []
     directory = root / ".github/workflows"
+    if (root / ".github").is_symlink() or directory.is_symlink():
+        return ["workflow directory symlinks are not allowed"]
     if not directory.is_dir():
         return ["workflow directory is missing"]
     paths = sorted(p for p in directory.iterdir() if p.suffix in {".yml", ".yaml"})
