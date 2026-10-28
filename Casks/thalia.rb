@@ -1,6 +1,6 @@
 cask "thalia" do
-  version "0.8.5"
-  sha256 "90112901e5bfccd60d04a11e4e96c7278eef7aa2a346527f5cf7117da6858e66"
+  version "0.8.6"
+  sha256 "0c1e54bc8d5acd00fa152d985fb13c4463a6654d3625894f8899d1a07dc1fb9a"
 
   url "https://usethalia.com/download/Thalia-#{version}.dmg"
   name "Thalia"
